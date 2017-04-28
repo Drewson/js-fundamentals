@@ -15,12 +15,15 @@ __Named properties__ operate very similarly to variables, except that they exist
 When we talk about named properties of objects, we call them 'properties', 'keys', or 'attributes'.
 They are part of the __key/value pair__ paradigm.
 
-In the `myObject` example, `name` and `age` are __keys__, and `'Jonathon'` and `42` are their respective values.
+In the `myObject` example, `name` and `age` are __keys__, and `'Jonathon'` and `42` are their respective __values__.
 
 
 ## Defining
 
 ```javascript
+// An empty object
+var empty = {};
+
 // A simple object
 var student = {
   name: 'James Taylor',
@@ -80,7 +83,7 @@ redClass.campus.kitchen.hasBeer; // true
 
 // The above is equivalent to:
 var campus = redClass.campus;
-var kitchen = redClass.kitchen;
+var kitchen = campus.kitchen;
 kitchen.hasBeer; // true
 ```
 

@@ -14,12 +14,10 @@ includes:
   - scope
   - arrays
   - objects
-  - contributing
   - values
-  - hoist
-  - this
+  - pure_functions
   - truthiness
-  - coercion
+  - contributing
 
 search: true
 ---

@@ -35,6 +35,11 @@ An array that contained 30 cars and 10 ducks, for example, wouldn't make sense.
 
 ## Indexes
 
+```
+Element: ['one', 'two', 'three', 'four']
+Index:      0      1       2        3
+```
+
 Each element in an array has an __index__.
 The first element added to an array has an index of 0, and we count up from there.
 Because we count from zero, we can always say that the highest index in the array is _one less_ than the length of the array.
@@ -48,6 +53,9 @@ The length of the array is 3.
 ## Defining
 
 ```javascript
+// Empty array
+var empty = [];
+
 // Array of numbers
 var numbers = [111, 222, 333, 444];
 
@@ -83,9 +91,9 @@ var graph = [
 
 // Array of functions
 var actions = [
-  function(x) {  console.log(x); },
-  function(x) {  console.log(x + 1) },
-  function(x) {  console.log(x + 2) },
+  function(x) { console.log(x); },
+  function(x) { console.log(x + 1) },
+  function(x) { console.log(x + 2) },
 ]
 ```
 
@@ -126,3 +134,5 @@ Iterating over an array means accessing every element in the array.
 
 We can do this manually with constructs like `for` loops, but we generally use functions to make our lives easier.
 These iterating functions access the _value_ of each element in our array and give it back as a parameter in a function that we pass in.
+
+The Javascript Array is [extensively documented on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).

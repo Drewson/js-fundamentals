@@ -15,7 +15,7 @@ They take zero or more inputs, and optionally provide a return value.
 `function` parameters are also known as _arguments_.
 We can say "how many parameters does the function have?", and we can also say "how many arguments does it take?".
 
-The `printAverage` function, for example, both "has 2 parameters" and "takes 2 arguments".
+The `printAverage` function in the next example both "has 2 parameters" and "takes 2 arguments".
 
 ## Structure
 
@@ -112,6 +112,7 @@ function printValue(index, value) {
   console.log(value);
 }
 
+// Pass the printValue as the second argument of the operateOnArray invocation
 operateOnArray(array, printValue);
 ```
 

@@ -79,7 +79,7 @@ Avoid names like `num` whenever possible.
 var silence = ''; // <- Empty string
 var quiet = ""; // <- Empty string using double quotes
 var africanAnimal = 'Hippopotamus'; // <- One word
-var banalSentense = "I can be as long as anyone decides to make me..."; // Long strings
+var banalSentence = "I can be as long as anyone decides to make me..."; // Long strings
 
 typeof quiet; // 'string'
 ```

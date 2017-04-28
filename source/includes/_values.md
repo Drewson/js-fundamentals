@@ -1,46 +1,100 @@
-##Passing by Value vs. Passing by Reference
+# Value vs. Reference
 
-#Passing by Reference
-You're in an university class, given a topic on __Passing by Reference__. Your
-whole class is really struggling with the paper and everyone is complaining,
-wanting a topic change. But unfortunately, Professor JavaScript sees the value
-in the topic and it will never change. So consider this, even though the
-topic, or value, never changes, the papers handed in can have different
-contents but the topic never changes. In essence, now when talking about
-__Passing by Reference__ all those papers can be handed in no matter the
-attributes of those papers.
+When you pass data from function to function, or when you assign the value of a variable to another variable, we say that you are __passing__ that data from one place to another.
+
+In Javascript (and most languages) there are two ways of __passing__: by __value__ and by __reference__.
+
+## Passing by Value
 
 ```js
-var paperTopic = [paper1, paper2, paper3, paper4];
+// Step 1
+var number = 5;
+
+// Step 2
+var anotherNumber = number;
+
+// Step 3
+anotherNumber += 10;
+
+// Step 4
+console.log(number); // 5
+console.log(anotherNumber); // 15
 ```
 
-_Values_ in this example array can be changed,
-but the topic, or value of the array,
-never changes.
+When you pass a primitive value to a function or reassign it to another variable,
+Javascript creates a __copy__ of it in memory. The steps look like this:
 
-#Passing by Value
+__Step 1__
 
-Conversely, Professor JavaScript doesn't like you. He makes you handwrite
-your paper, but also, for some ridiculous reason, wants you to hand in a
-photocopy. After handing it in you frame your handwritten paper, so it never
-changes. Meanwhile, Professor JavaScript figuratively shits on your paper, changing
-it forever, but he shall never touch your handwritten 'masterpiece'.
+Javascript allocates memory to the number `5` and provides the variable `number` with a reference to that memory.
+
+__Step 2__
+
+Javascript allocates __new__ memory to create a copy of the number five and provides the variable `anotherNumber` with a reference to that new memory.
+
+__Step 3__
+
+Javascript calculates `5 + 10 = 15` and allocates __new__ memory to store `15`. It then provides `anotherNumber` with a reference to that new memory. Once the number `5` (previously referenced by `anotherNumber`) is __de-referenced__, it is destroyed by the [Javascript Garbage Collector](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Memory_Management).
+
+__Step 4__
+
+When we log the values assigned to `number` and `anotherNumber`, we get `5` and `15`.
+
+## Passing by Reference
 
 ```js
-var handwritten = 'yourHandwrittenPaper'
+// Step 1
+var list = [1, 2, 3];
 
-(function (changePaper) {
-  return handwritten + 'is 49%'
-})
+// Step 2
+var anotherList = list;
+
+// Step 3
+anotherList.push(4);
+
+// Step 4
+console.log(list); // [1, 2, 3, 4]
+console.log(anotherList); // [1, 2, 3, 4]
+
+// Step 5
+var listCopy = list.slice();
+
+// Step 6
+listCopy.push(5);
+
+// Step 7
+console.log(list); // [1, 2, 3, 4]
+console.log(listCopy); // [1, 2, 3, 4, 5]
 ```
 
-This example function will return _'yourHandwrittenPaper is 49%'_. This shows that
-__handwritten__ can be called in a function, but never changes the original value of
-the handwritten variable.
+When you pass a compex structures like Arrays and Objects, Javascript simply passes them __by reference__. This means that it simply points the new variable to the same memory as the old variable.
 
-#Pure function
+Why? Consider working with large data sets, say an array of size 1,000,000. If we needed to rebuild that array completely every time we passed it to a function, our application would be very slow! We would also be using a considerable amount of memory to maintain all of these seperate copies.
 
-__Pure function__ is a pipe that doesn't leak, and in essence cannot be mutated.
-Some of the benefits of using a pure function clarity,
-cleanliness, the job is done more percisely. Moreover, it will not unintentionally
-effect scripts running in other parts of your code.
+__Step 1__
+
+Javascript allocates memory for an array. Javascript then allocates memory for the numbers `1`, `2`, and `3` and gives the provides the array with references to the memory associated with those three numbers. Javascript then provides a reference to the memory it allocated for the array to the variable `list`.
+
+__Step 2__
+
+Javascript takes the reference to the array currently stored in `list`, copies it, and assigns it to `anotherList`. Both variables now point at the same section of memory.
+
+__Step 3__
+
+Javascript allocates memory for the number `4` and adds it to the array referenced by `anotherList`, which is __the same array__ referenced by `list`.
+
+__Step 4__
+
+When we log the values assigned to `list` and `anotherList`, we can see that they are the same!
+
+__Step 5__
+
+We use the Array.slice() method to create a copy of the `list` array (same process as Step 1), which is then assigned to the variable `listCopy`.
+
+__Step 6__
+
+We then add the number `5` to the `listCopy` array.
+
+__Step 7__
+
+When we log `list` and `listCopy`, we see that their values are now different. This is because we __created a copy__ of list. The copy had its own memory, so the two arrays could act independantly.

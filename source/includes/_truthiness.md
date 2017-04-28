@@ -1,46 +1,63 @@
 # Truthiness
-A truthy value is a value that translates to true when evaluated in a Boolean context. All values are truthy unless they are defined as falsy (i.e., except for false, 0, "", null, undefined, and NaN).
- 
 
-```javascript
-if (true) {
-    console.log('we will get here');
-}
-if ({}) {
-    console.log('we will get here');
-}
- 
- 
-if (-42) {
-    console.log('we will get here');
-}
- 
- 
-if (-Infinity) {
-    console.log('we will get here');
-}
-
- 
-// undefined
+```js
+var name = 'Amir';
+!name;  // false
+!!name; // true
 ```
-## Falsiness
-Using Boolean with the value of true or false, a falsyness will always be evaluated to false
 
+In Javascript, every data type can be interpreted as either __true__ or __false__.
+Some of them may seem a bit strange, but honestly it's something you just need to memorize.
 
-```javascript
-if (false) {
-    console.log('we will not get here');
-}
+To test whether a value is `true` or `false`, simply prepend it with `!!`.
+This first __negates__ the value, then __negates__ the __negated__ value, resulting in either `true` or `false.
 
-if (null){
-    console.log('we will not get here');
-}
+## Strings
 
-if (undefined){
-    console.log('we will not get here');
-}
+```js
+var empty = '';
+!!name; // false
 
-if (0){
-    console.log('we will not get here');
-}
- 
+var name = 'Amir';
+!!name; // true
+```
+
+A string is `true` if it has more than one character, and `false` otherwise.
+
+## Numbers
+
+```js
+var count = 0;
+!!count; // false
+
+var decimal = 0.00;
+!!decimal; //false
+
+var age = 31;
+!!age; // true
+
+var percent = 3.12;
+!!percent; // true
+```
+
+## Undefined & Null
+
+Both `underfined` and `null` are falsey.
+
+## Arrays and Objects
+
+```js
+var emptyArr = [];
+!!emptyArr; // true
+!!emptyArr.length; // false
+
+var arr = [1, 2, 3];
+!!arr; // true
+!!arr.length; // true
+
+var obj = {};
+!!obj; // true
+```
+
+Arrays and Objects are truthy, even when they're empty.
+You wil need to check their contents to derive a useful truthy value.
