@@ -40,9 +40,11 @@ var percent = 3.12;
 !!percent; // true
 ```
 
+Zero is `false`, anything else is `true`!
+
 ## Undefined & Null
 
-Both `underfined` and `null` are falsey.
+Both `undefined` and `null` are falsey.
 
 ## Arrays and Objects
 
@@ -60,4 +62,4 @@ var obj = {};
 ```
 
 Arrays and Objects are truthy, even when they're empty.
-You wil need to check their contents to derive a useful truthy value.
+You will need to check their contents to derive a useful truthy value.

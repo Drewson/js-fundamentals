@@ -17,6 +17,7 @@ includes:
   - values
   - pure_functions
   - truthiness
+  - hoisting
   - contributing
 
 search: true
