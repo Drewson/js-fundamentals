@@ -809,9 +809,11 @@ This first <strong>negates</strong> the value, then <strong>negates</strong> the
 <span class="kd">var</span> <span class="nx">percent</span> <span class="o">=</span> <span class="mf">3.12</span><span class="p">;</span>
 <span class="o">!!</span><span class="nx">percent</span><span class="p">;</span> <span class="c1">// true</span>
 </code></pre>
+<p>Zero is <code class="prettyprint">false</code>, anything else is <code class="prettyprint">true</code>!</p>
+
 <h2 id="undefined-amp-null">Undefined &amp; Null</h2>
 
-<p>Both <code class="prettyprint">underfined</code> and <code class="prettyprint">null</code> are falsey.</p>
+<p>Both <code class="prettyprint">undefined</code> and <code class="prettyprint">null</code> are falsey.</p>
 
 <h2 id="arrays-and-objects">Arrays and Objects</h2>
 <pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">emptyArr</span> <span class="o">=</span> <span class="p">[];</span>
@@ -826,7 +828,133 @@ This first <strong>negates</strong> the value, then <strong>negates</strong> the
 <span class="o">!!</span><span class="nx">obj</span><span class="p">;</span> <span class="c1">// true</span>
 </code></pre>
 <p>Arrays and Objects are truthy, even when they&rsquo;re empty.
-You wil need to check their contents to derive a useful truthy value.</p>
+You will need to check their contents to derive a useful truthy value.</p>
+
+          <h1 id="hoisting">Hoisting</h1>
+<pre class="highlight javascript"><code><span class="kd">function</span> <span class="nx">demostrateHoisting</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="s1">'bar'</span><span class="p">;</span>
+
+  <span class="c1">// Function declaration</span>
+  <span class="kd">function</span> <span class="nx">myFunc</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">// Function assignment</span>
+  <span class="kd">var</span> <span class="nx">myFunctionVariable</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">myFunc</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+<p>Before your Javascript code is executed, the interpreter does a few quick passes that rearrange your code. This process is called <strong>hoisting</strong>.</p>
+
+<p>We&rsquo;ll be using the example code on the right to illustrate this process.</p>
+
+<h2 id="function-hoisting">Function Hoisting</h2>
+<pre class="highlight javascript"><code><span class="cm">/*
+  Original
+*/</span>
+<span class="kd">function</span> <span class="nx">demostrateHoisting</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="s1">'bar'</span><span class="p">;</span>
+
+  <span class="c1">// Function declaration</span>
+  <span class="kd">function</span> <span class="nx">myFunc</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">// Function assignment</span>
+  <span class="kd">var</span> <span class="nx">myFunctionVariable</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">myFunc</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="cm">/*
+  After First Pass
+*/</span>
+<span class="kd">function</span> <span class="nx">demostrateHoisting</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// Moved to top</span>
+  <span class="kd">function</span> <span class="nx">myFunc</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="s1">'bar'</span><span class="p">;</span>
+
+  <span class="c1">// Function declaration</span>
+  <span class="kd">function</span> <span class="nx">myFunc</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">// Function assignment</span>
+  <span class="kd">var</span> <span class="nx">myFunctionVariable</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">myFunc</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+<p>The interpreter&rsquo;s first pass is to check for any <strong>function declarations</strong>.</p>
+
+<p>Function declarations are statements that <strong>start</strong> with the <code class="prettyprint">function</code> keyword, as opposed to <strong>function assignments</strong>, which refers to assigning a function to a variable.</p>
+
+<p>When then interpreter identifies any function declarations, it moves the to the top of the file.</p>
+
+<h2 id="variable-hoisting">Variable Hoisting</h2>
+<pre class="highlight javascript"><code><span class="cm">/*
+  After First Pass
+*/</span>
+<span class="kd">function</span> <span class="nx">demostrateHoisting</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">function</span> <span class="nx">myFunc</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="s1">'bar'</span><span class="p">;</span>
+
+  <span class="c1">// Function assignment</span>
+  <span class="kd">var</span> <span class="nx">myFunctionVariable</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">myFunc</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="cm">/*
+  After Second Pass
+*/</span>
+<span class="kd">function</span> <span class="nx">demostrateHoisting</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">function</span> <span class="nx">myFunc</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">// Variable declarations moved below function declarations</span>
+  <span class="kd">var</span> <span class="nx">foo</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">myFunctionVariable</span><span class="p">;</span>
+
+  <span class="nx">foo</span> <span class="o">=</span> <span class="s1">'bar'</span><span class="p">;</span>
+
+  <span class="c1">// Function assignment</span>
+  <span class="nx">myFunctionVariable</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="nx">foo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">myFunc</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+<p>After the first pass is complete, the interpreter looks for all <strong>variable declarations</strong> using the <code class="prettyprint">var</code> keyword, and moves them immediately below the function declarations.</p>
+
+<p><strong>NOTE:</strong> the variable declarations are hoisted, but their <strong>assignments</strong> stay in the same place.</p>
 
           <h1 id="contributing">Contributing</h1>
 
